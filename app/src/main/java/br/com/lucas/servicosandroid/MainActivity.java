@@ -7,10 +7,12 @@ import android.view.View;
 import android.widget.Button;
 
 import java.util.List;
+import java.util.Set;
 
 import br.com.lucas.servicosandroid.dto.AlunoSync;
 import br.com.lucas.servicosandroid.model.Aluno;
 import br.com.lucas.servicosandroid.retrofit.RetrofitInicializador;
+import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         Aluno aluno = new Aluno("Lucas", "Rua teste", "9999999", "www.site.com", 10.0, 0, 0);
 
-
+        //funcionando , só esta comentado para não precisar criar outro botão
        /* Call call = new RetrofitInicializador().getAlunoService().insere(aluno);
 
         call.enqueue(new Callback() {
@@ -61,14 +63,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             //Call tras as informações da requisição e o response o json
             public void onResponse(Call<AlunoSync> call, Response<AlunoSync> response) {
+
                 AlunoSync alunoSync = response.body();
+
+                /**
+                 * Caso os parametros recebidos possam ser diferentes, basta somente ter certeza que todos os
+                 * parametros estejam na classe de sync, mesmo que em algumas requisições todos os parametros não
+                 * sejam recebidos
+                 */
 
                 List<Aluno> alunos = alunoSync.getAlunos();
 
                 for(Aluno aluno : alunos) {
                     System.out.println(aluno.getNome());
                 }
-
 
             }
 

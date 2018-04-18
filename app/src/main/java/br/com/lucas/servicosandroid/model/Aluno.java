@@ -9,6 +9,7 @@ public class Aluno {
     private Double nota;
     private int desativado;
     private int idCliente;
+    private String mensagem;
 
     public Aluno() {}
 
@@ -97,6 +98,14 @@ public class Aluno {
 
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 
     @Override

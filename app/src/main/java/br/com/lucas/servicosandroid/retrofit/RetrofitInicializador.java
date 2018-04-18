@@ -16,4 +16,5 @@ public class RetrofitInicializador {
     public AlunoService getAlunoService() {
         return retrofit.create(AlunoService.class);
     }
+
 }
