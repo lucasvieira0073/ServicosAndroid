@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/main3_t1"
+        android:gravity="left"
+        android:layout_width="320dp"
+        android:layout_height="80dp" />
+
+    <TextView
+        android:background="@drawable/fundo_notificacao"
+        android:id="@+id/main3_t2"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:textColor="@color/corBranca"
+        />
+    <!-- tentar tambem android:layout_gravitity="center"-->
+
+    <!-- pode incluir fragmentos com <include>,
+
+        CONFIRMADO! pode remover a classe java de activity que nao a usa
+        apenas verifique se futuramente não irá
+
+        pode colocar linearLayout dentro de linearLayout ou qualquer outro como relative
+
+        pode utilizar dois lineares para fazer um "gridsistem"
+
+
+        LEMBRAR DE VERIFICAR AS VERSÕES DO PROJETO
+
+        DEVE ESTAR COM NO MINIMO ANDROID 4.4 E MAXIMO O MAIS ATUAL
+
+        GARANTIA QUE RODA NO 4.4 PARA CIMA
+
+
+        -->
+
+</LinearLayout>

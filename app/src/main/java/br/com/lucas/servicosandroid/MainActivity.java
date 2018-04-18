@@ -4,20 +4,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import br.com.lucas.servicosandroid.dto.AlunoSync;
 import br.com.lucas.servicosandroid.model.Aluno;
+import br.com.lucas.servicosandroid.model.Opcao;
 import br.com.lucas.servicosandroid.retrofit.RetrofitInicializador;
 import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +32,52 @@ public class MainActivity extends AppCompatActivity {
 
         Button button = (Button) findViewById(R.id.button);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        button.setOnClickListener(this);
+
+
+        /**
+         *
+         * outra coisa , considear que o response quando sucesso e retorna vazio
+         * ele pode retornar corpo quando não sucesso (porem com a concexão estabelecida)
+         * assim, crie uma classe genérica para receber esses dados de conexão com bad response
+         */
+
+
+
+        List<Opcao> alunos = new ArrayList<>();
+
+        //lembrar de colocar public no construtor da classe opção
+        alunos.add(new Opcao("Teste1"));
+        alunos.add(new Opcao("Teste2"));
+        alunos.add(new Opcao("Teste3"));
+
+
+        ListView listaAlunos = (ListView) findViewById(R.id.lista_alunos);//alt + enter faz o import
+
+        //convertendo Strings em Views   atenção para o contexto
+        ArrayAdapter<Opcao> adapter = new ArrayAdapter<Opcao>(MainActivity.this, android.R.layout.simple_expandable_list_item_1, alunos);
+
+        //vincula a lista com o adapter
+        listaAlunos.setAdapter(adapter);
+
+
+
+    }
+
+
+    public void carregaLista() {
+
+    }
+
+
+
+    public void onClick(View v) {
+
+        switch(v.getId()) {
+            case R.id.button :
                 executaTudo();
-            }
-        });
+                break;
+        }
 
     }
 
@@ -72,11 +118,17 @@ public class MainActivity extends AppCompatActivity {
                  * sejam recebidos
                  */
 
-                List<Aluno> alunos = alunoSync.getAlunos();
+               // List<Aluno> alunos = alunoSync.getAlunos();
 
-                for(Aluno aluno : alunos) {
-                    System.out.println(aluno.getNome());
-                }
+
+               // ListView listaAlunos = (ListView) findViewById(R.id.lista_alunos);//alt + enter faz o import
+
+                //convertendo Strings em Views
+               // ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(MainActivity.this, android.R.layout.simple_expandable_list_item_1, alunos);
+
+                //vincula a lista com o adapter
+                //listaAlunos.setAdapter(adapter);
+
 
             }
 
