@@ -10,8 +10,10 @@ import retrofit2.Response;
 
 public class ErrorBody<T> {
 
-    public T getError(Response response) {
-        Converter<ResponseBody, Erro> converter = new RetrofitInit().getRetrofit().responseBodyConverter(Erro.class, new Annotation[0]);
+    public T getError(Response response, Class clazz) {
+        Converter<ResponseBody, T> converter = new RetrofitInit()
+                                    .getRetrofit()
+                                    .responseBodyConverter(clazz, new Annotation[0]);
         try {
             return (T) converter.convert(response.errorBody());
         } catch (IOException e) {

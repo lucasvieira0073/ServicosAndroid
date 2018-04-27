@@ -41,7 +41,7 @@ public class TesteActivity extends AppCompatActivity {
 
                 }else{
 
-                    Erro erro = new ErrorBody<Erro>().getError(response);
+                    Erro erro = new ErrorBody<Erro>().getError(response, Erro.class);
                     System.out.println(erro.getNome());
 
 
