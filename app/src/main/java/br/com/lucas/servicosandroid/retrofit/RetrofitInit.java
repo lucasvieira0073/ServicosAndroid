@@ -25,8 +25,4 @@ public class RetrofitInit {
         return retrofit;
     }
 
-    /*
-    public AlunoService getAlunoService() {
-        return retrofit.create(AlunoService.class);
-    }*/
 }
