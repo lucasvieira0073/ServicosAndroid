@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="corBranca">#ffffff</color>
+    <color name="corPreta">#000000</color>
 </resources>

@@ -17,12 +17,13 @@ public class TarefaService extends AsyncTask<Void, Integer, Integer> {//entrada 
 
     private Activity activity;
     private ITarefaExecutar tarefaExecutar;
+    boolean loop;
 
     private Response responseResult;
     private String messageResult;
     private String stringResult;
 
-    public TarefaService(Activity activity, ITarefaExecutar tarefaExecutar) {
+    public TarefaService(Activity activity, boolean loop, ITarefaExecutar tarefaExecutar) {
         this.activity = activity;
         this.tarefaExecutar = tarefaExecutar;
     }
@@ -38,29 +39,36 @@ public class TarefaService extends AsyncTask<Void, Integer, Integer> {//entrada 
     @Override
     protected Integer doInBackground(Void... voids) {
 
-        for(int i = 0; i < 10; i++) {
+        do {
             Call call = tarefaExecutar.getCall();
             try {
                 Response response = call.execute();
 
                 if (response.isSuccessful()) {
                     responseResult = response;
-                    stringResult = "Aluno " + new Date().toString();
                     publishProgress(1);
-                    //onPostExecute(1);
                 } else {
                     responseResult = response;
                     onPostExecute(2);
                 }
 
-                Thread.sleep(5000);
+
 
 
             } catch (Exception e) {
                 messageResult = e.getMessage();
                 onPostExecute(3);
             }
-        }
+
+            if(loop) {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }while(loop);
         return 4;
 
     }
@@ -71,7 +79,7 @@ public class TarefaService extends AsyncTask<Void, Integer, Integer> {//entrada 
         super.onProgressUpdate(values);
         switch (values[0]) {
             case 1 :
-                tarefaExecutar.retornoComSucesso(stringResult);
+                tarefaExecutar.retornoComSucesso(responseResult);
                 break;
             case 2 :
                 tarefaExecutar.retornoSemSucesso(responseResult);
@@ -88,20 +96,7 @@ public class TarefaService extends AsyncTask<Void, Integer, Integer> {//entrada 
     //executado uma unica vez no final do doInBackGround
     @Override
     protected void onPostExecute(Integer tipo) {
-        //super.onPostExecute(tipo);
-        switch (tipo) {
-            case 1 :
-                tarefaExecutar.retornoComSucesso(stringResult);
-                break;
-            case 2 :
-                tarefaExecutar.retornoSemSucesso(responseResult);
-                break;
-            case 3 :
-                tarefaExecutar.retornoComErro(messageResult);
-                break;
-                default:
-                    break;
-        }
+
 
     }
 

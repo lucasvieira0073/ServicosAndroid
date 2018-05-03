@@ -25,12 +25,12 @@ public class TarefaAluno implements ITarefaExecutar {
     }
 
     @Override
-    public void retornoComSucesso(String response) {
+    public void retornoComSucesso(Response response) {
         //Aluno aluno = (Aluno) response.body();
 
-        testeActivity.textView.setText(response);
+        //testeActivity.textView.setText(response);
 
-        System.out.println("Successfull " + response + " ================");
+        //System.out.println("Successfull " + response + " ================");
     }
 
     @Override

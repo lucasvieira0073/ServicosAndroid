@@ -3,17 +3,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/corPreta">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tela de teste"
-        android:id="@+id/txtTeste"/>
+        android:id="@+id/txtTeste"
+        android:textColor="@color/corBranca"/>
 
     <ListView
+        android:id="@+id/lista"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:divider="#FFCC00"
+        android:dividerHeight="4px"/>
 
     <Button
         android:layout_width="match_parent"
