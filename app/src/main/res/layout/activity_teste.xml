@@ -8,7 +8,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tela de teste"/>
+        android:text="Tela de teste"
+        android:id="@+id/txtTeste"/>
 
     <ListView
         android:layout_width="match_parent"

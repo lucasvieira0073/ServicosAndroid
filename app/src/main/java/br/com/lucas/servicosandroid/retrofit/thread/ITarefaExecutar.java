@@ -5,7 +5,7 @@ import retrofit2.Response;
 
 public interface ITarefaExecutar {
     Call getCall();
-    void retornoComSucesso(Response response);
+    void retornoComSucesso(String response);
     void retornoSemSucesso(Response response);
     void retornoComErro(String message);
 

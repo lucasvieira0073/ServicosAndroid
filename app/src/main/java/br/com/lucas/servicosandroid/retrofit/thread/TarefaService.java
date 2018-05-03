@@ -1,100 +1,110 @@
 package br.com.lucas.servicosandroid.retrofit.thread;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.concurrent.Callable;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class TarefaService implements Callable<Void> {
+public class TarefaService extends AsyncTask<Void, Integer, Integer> {//entrada doInBack     //entrada onProgress   //saida doback e entrada do postExec
 
     private Activity activity;
-    private boolean loop;
-    private int millis;
-    private ProgressBar progressBar;
-    private boolean utilizaProgressBar;
     private ITarefaExecutar tarefaExecutar;
 
+    private Response responseResult;
+    private String messageResult;
+    private String stringResult;
 
-    public TarefaService(Activity activity, boolean loop, int millis, ITarefaExecutar tarefaExecutar) {
+    public TarefaService(Activity activity, ITarefaExecutar tarefaExecutar) {
         this.activity = activity;
-        this.loop = loop;
-        this.millis = millis;
         this.tarefaExecutar = tarefaExecutar;
-        this.utilizaProgressBar = false;
     }
 
-    public TarefaService(Activity activity, boolean loop, int millis, ProgressBar progressBar, ITarefaExecutar tarefaExecutar) {
-        this.activity = activity;
-        this.loop = loop;
-        this.millis = millis;
-        this.progressBar = progressBar;
-        this.tarefaExecutar = tarefaExecutar;
-        this.utilizaProgressBar = true;
+    //nao faz parte dos icones em generics
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
     }
+
 
 
     @Override
-    public Void call() {
-        System.out.println("Executou o calllllllllllllllllllll");
-        do {
-            System.out.println("Entrou no on Responseeeeeeeee");
+    protected Integer doInBackground(Void... voids) {
 
+        for(int i = 0; i < 10; i++) {
             Call call = tarefaExecutar.getCall();
             try {
                 Response response = call.execute();
 
                 if (response.isSuccessful()) {
-                    tarefaExecutar.retornoComSucesso(response);
+                    responseResult = response;
+                    stringResult = "Aluno " + new Date().toString();
+                    publishProgress(1);
+                    //onPostExecute(1);
                 } else {
-                    tarefaExecutar.retornoSemSucesso(response);
+                    responseResult = response;
+                    onPostExecute(2);
                 }
 
-                if(utilizaProgressBar) {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    utilizaProgressBar = false;
-                }
+                Thread.sleep(5000);
 
-                Log.i("onResponse", "onResponse: Deuuuuuuuuuuuuuuuuuuuu");
-            }catch(IOException e) {
-                if (utilizaProgressBar) {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    utilizaProgressBar = false;
-                }
 
-                Log.e("onFalilure", "onFailureeeeeeeeeeeeeee: " + e.getMessage());
-                tarefaExecutar.retornoComErro(e.getMessage());
+            } catch (Exception e) {
+                messageResult = e.getMessage();
+                onPostExecute(3);
             }
+        }
+        return 4;
 
-            System.out.println("Esta no fluxo <><><><><><><><><><><><><>");
-            if(loop) {
-                try {
-                    Thread.sleep(millis);
-                } catch (InterruptedException e) {
-                    System.out.println("Sleep interrompida!");
-                }
-            }
-        }while (loop);
-
-        System.out.println("THREAD CONCLUIDA COM SUCESSO!!!!!!!!!!!!!!!!!!");
-        return null;
     }
 
-    public void stop() {
-        this.loop = false;
+    //executado sempre que chamado publicProgress
+    @Override
+    protected void onProgressUpdate(Integer... values) {
+        super.onProgressUpdate(values);
+        switch (values[0]) {
+            case 1 :
+                tarefaExecutar.retornoComSucesso(stringResult);
+                break;
+            case 2 :
+                tarefaExecutar.retornoSemSucesso(responseResult);
+                break;
+            case 3 :
+                tarefaExecutar.retornoComErro(messageResult);
+                break;
+            default:
+                break;
+        }
+
     }
 
-    public void setLoop(boolean loop) {
-        this.loop = true;
+    //executado uma unica vez no final do doInBackGround
+    @Override
+    protected void onPostExecute(Integer tipo) {
+        //super.onPostExecute(tipo);
+        switch (tipo) {
+            case 1 :
+                tarefaExecutar.retornoComSucesso(stringResult);
+                break;
+            case 2 :
+                tarefaExecutar.retornoSemSucesso(responseResult);
+                break;
+            case 3 :
+                tarefaExecutar.retornoComErro(messageResult);
+                break;
+                default:
+                    break;
+        }
+
     }
 
-    public boolean estaRodando() {
-        return loop;
-    }
+
 
 }

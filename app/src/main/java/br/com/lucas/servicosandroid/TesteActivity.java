@@ -2,38 +2,31 @@ package br.com.lucas.servicosandroid;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-
-import java.util.concurrent.Future;
+import android.widget.TextView;
 
 import br.com.lucas.servicosandroid.service.TarefaAluno;
 import br.com.lucas.servicosandroid.retrofit.thread.TarefaService;
 
 public class TesteActivity extends AppCompatActivity {
+    public TextView textView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teste);
 
-        new Inicializacao();
+        textView = (TextView) findViewById(R.id.txtTeste);
 
-        TarefaService service = new TarefaService(this, true, 5000, new TarefaAluno());
+        TarefaService tarefa = new TarefaService(TesteActivity.this, new TarefaAluno(TesteActivity.this));
+        tarefa.execute();
 
-        Inicializacao.threadPool.submit(service);
+      /*  tarefa.cancel(true);
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if(tarefa.isCancelled()) {
+            System.out.println("FOI CANCELADA MESMO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
-
-        service.stop();
-
-        if(!service.estaRodando()) {
-            service.setLoop(true);
-            Inicializacao.threadPool.submit(service);
-        }
-
+        */
 
     }
 }

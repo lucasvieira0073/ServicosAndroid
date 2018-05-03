@@ -1,5 +1,8 @@
 package br.com.lucas.servicosandroid.service;
 
+import android.os.AsyncTask;
+
+import br.com.lucas.servicosandroid.TesteActivity;
 import br.com.lucas.servicosandroid.model.Aluno;
 import br.com.lucas.servicosandroid.model.Erro;
 import br.com.lucas.servicosandroid.retrofit.ErrorBody;
@@ -9,6 +12,12 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class TarefaAluno implements ITarefaExecutar {
+    private TesteActivity testeActivity;
+
+
+    public TarefaAluno(TesteActivity testeActivity) {
+        this.testeActivity = testeActivity;
+    }
 
     @Override
     public Call<Aluno> getCall() {
@@ -16,10 +25,12 @@ public class TarefaAluno implements ITarefaExecutar {
     }
 
     @Override
-    public void retornoComSucesso(Response response) {
-        Aluno aluno = (Aluno) response.body();
+    public void retornoComSucesso(String response) {
+        //Aluno aluno = (Aluno) response.body();
 
-        System.out.println("Successfull " + aluno.getNome() + " ================");
+        testeActivity.textView.setText(response);
+
+        System.out.println("Successfull " + response + " ================");
     }
 
     @Override
@@ -32,4 +43,5 @@ public class TarefaAluno implements ITarefaExecutar {
     public void retornoComErro(String message) {
 
     }
+
 }
