@@ -11,11 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tela de teste"
-        android:id="@+id/txtTeste"
+        android:id="@+id/txtTeste2"
         android:textColor="@color/corBranca"/>
 
     <ListView
-        android:id="@+id/lista"
+        android:id="@+id/lista2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="#FFCC00"
@@ -23,7 +23,6 @@
         android:layout_weight="1"/>
 
     <Button
-        android:id="@+id/botao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Teste"/>

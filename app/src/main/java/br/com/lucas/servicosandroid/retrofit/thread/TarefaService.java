@@ -25,6 +25,7 @@ public class TarefaService extends AsyncTask<Void, Integer, Integer> {//entrada 
 
     public TarefaService(Activity activity, boolean loop, ITarefaExecutar tarefaExecutar) {
         this.activity = activity;
+        this.loop = loop;
         this.tarefaExecutar = tarefaExecutar;
     }
 
@@ -49,7 +50,7 @@ public class TarefaService extends AsyncTask<Void, Integer, Integer> {//entrada 
                     publishProgress(1);
                 } else {
                     responseResult = response;
-                    onPostExecute(2);
+                    //onPostExecute(2);
                 }
 
 
@@ -57,14 +58,14 @@ public class TarefaService extends AsyncTask<Void, Integer, Integer> {//entrada 
 
             } catch (Exception e) {
                 messageResult = e.getMessage();
-                onPostExecute(3);
+                //onPostExecute(3);
             }
 
             if(loop) {
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(10000);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    System.out.println("FOI BRUTALMENTE INTERROMPIDO");
                 }
             }
 
@@ -100,6 +101,14 @@ public class TarefaService extends AsyncTask<Void, Integer, Integer> {//entrada 
 
     }
 
+    public void stop() {
+        this.loop = false;
+        this.cancel(true);
+    }
+
+    public boolean isRunning() {
+        return loop;
+    }
 
 
 }

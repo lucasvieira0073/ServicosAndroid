@@ -1,11 +1,9 @@
 package br.com.lucas.servicosandroid;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,39 +14,26 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.lucas.servicosandroid.model.Aluno;
-import br.com.lucas.servicosandroid.service.TarefaAluno;
 import br.com.lucas.servicosandroid.retrofit.thread.TarefaService;
 import br.com.lucas.servicosandroid.service.TarefaAlunos;
+import br.com.lucas.servicosandroid.service.TarefaAlunos2;
 
-public class TesteActivity extends AppCompatActivity {
+public class Teste2Activity extends AppCompatActivity {
     public TextView textView;
     public ListView listView;
-    private TarefaService tarefa;
+
     private Map<Integer, Aluno> alunosMap = new HashMap<>();
     private List<Aluno> listaAlunos;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teste);
+        setContentView(R.layout.activity_teste2);
+        textView = (TextView) findViewById(R.id.txtTeste2);
+        listView = (ListView) findViewById(R.id.lista2);
 
-        textView = (TextView) findViewById(R.id.txtTeste);
-        listView = (ListView) findViewById(R.id.lista);
-
-
-        Button btn = (Button) findViewById(R.id.botao);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(TesteActivity.this, Teste2Activity.class);
-                startActivity(intent);
-            }
-        });
-
-
-        iniciaTarefa();
+        TarefaService tarefa = new TarefaService(Teste2Activity.this,true, new TarefaAlunos2(Teste2Activity.this));
+        tarefa.execute();
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -79,14 +64,9 @@ public class TesteActivity extends AppCompatActivity {
 
     }
 
-    private void iniciaTarefa() {
-        tarefa = new TarefaService(TesteActivity.this,true, new TarefaAlunos(TesteActivity.this));
-        tarefa.execute();
-    }
-
     public void carregaLista(List<Aluno> alunos) {
-        AdapterAlunos adapter =
-                new AdapterAlunos(alunos, TesteActivity.this);
+        AdapterAlunos2 adapter =
+                new AdapterAlunos2(alunos, Teste2Activity.this);
 
         listView.setAdapter(adapter);
     }
@@ -109,28 +89,4 @@ public class TesteActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(!tarefa.isRunning()) {
-            iniciaTarefa();
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if(tarefa.isRunning()) {
-            tarefa.stop();
-        }
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-
-        if(tarefa.isRunning()) {
-            tarefa.stop();
-        }
-    }
 }
