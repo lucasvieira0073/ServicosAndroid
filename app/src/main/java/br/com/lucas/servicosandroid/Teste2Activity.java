@@ -32,7 +32,7 @@ public class Teste2Activity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.txtTeste2);
         listView = (ListView) findViewById(R.id.lista2);
 
-        TarefaService tarefa = new TarefaService(Teste2Activity.this,true, new TarefaAlunos2(Teste2Activity.this));
+        TarefaService tarefa = new TarefaService(Teste2Activity.this,false, new TarefaAlunos2(Teste2Activity.this));
         tarefa.execute();
 
 

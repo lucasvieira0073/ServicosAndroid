@@ -80,7 +80,7 @@ public class TesteActivity extends AppCompatActivity {
     }
 
     private void iniciaTarefa() {
-        tarefa = new TarefaService(TesteActivity.this,true, new TarefaAlunos(TesteActivity.this));
+        tarefa = new TarefaService(TesteActivity.this,false, new TarefaAlunos(TesteActivity.this));
         tarefa.execute();
     }
 
