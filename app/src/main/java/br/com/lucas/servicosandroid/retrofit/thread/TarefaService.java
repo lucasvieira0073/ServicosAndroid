@@ -42,13 +42,13 @@ public class TarefaService extends AsyncTask<Void, Integer, Integer> {//entrada 
     protected void onPreExecute() {
         super.onPreExecute();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("Teste");
-        builder.setMessage("Mensagem teste");
-        builder.setPositiveButton("ok", null);
-        builder.setCancelable(false);
-
-        alertDialog = builder.create();
+//        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+//        builder.setTitle("Teste");
+//        builder.setMessage("Mensagem teste");
+//        builder.setPositiveButton("ok", null);
+//        builder.setCancelable(false);
+//
+//        alertDialog = builder.create();
     }
 
 
@@ -103,7 +103,7 @@ public class TarefaService extends AsyncTask<Void, Integer, Integer> {//entrada 
     }
 
     public void exibeProgressDialog() {
-        alertDialog.show();
+        //alertDialog.show();
     }
 
     public void stop() {
@@ -125,7 +125,7 @@ public class TarefaService extends AsyncTask<Void, Integer, Integer> {//entrada 
 
             if (response.isSuccessful()) {
                 responseResult = response;
-                publishProgress(4);
+                publishProgress(1);
             } else {
                 responseResult = response;
                 publishProgress(2);

@@ -13,11 +13,23 @@ import br.com.lucas.servicosandroid.TesteActivity;
 import br.com.lucas.servicosandroid.model.Aluno;
 import br.com.lucas.servicosandroid.retrofit.RetrofitInit;
 import br.com.lucas.servicosandroid.retrofit.thread.ITarefaExecutar;
+import br.com.lucas.servicosandroid.retrofit.thread.TarefaService;
 import br.com.lucas.servicosandroid.service.AlunosService;
+import br.com.lucas.servicosandroid.service.chamadasimples.NumeroService;
+import br.com.lucas.servicosandroid.service.chamadasimples.RetornoNumero;
+import br.com.lucas.servicosandroid.service.chamadasimples.TarefaNumero;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TarefaTeste implements ITarefaExecutar {
+
+    private TesteErroActivity testeErroActivity;
+    private int numero;
+
+    public TarefaTeste(TesteErroActivity testeErroActivity) {
+        this.testeErroActivity = testeErroActivity;
+    }
 
     @Override
     public Call getCall() {
@@ -26,7 +38,9 @@ public class TarefaTeste implements ITarefaExecutar {
 
     @Override
     public void retornoComSucesso(Response response) {
-        System.out.println(" EXECUTADO COM SUCESSO ====================");
+        System.out.println("================ tarefa 2 ============== numero: " + testeErroActivity.numero);
+
+
     }
 
     @Override

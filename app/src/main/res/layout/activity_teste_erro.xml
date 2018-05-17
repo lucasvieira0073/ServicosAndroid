@@ -15,12 +15,6 @@
                 android:text="Texto"
                 android:textSize="30sp"/>
 
-            <ProgressBar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                android:gravity="center"/>
-
         </LinearLayout>
 
 </ScrollView>
